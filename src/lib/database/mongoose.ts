@@ -34,11 +34,5 @@ export const connectToDB = async (): Promise<Mongoose> => {
 
   cached.conn = await cached.promise;
 
-  // Ensure database creation by performing a write operation
-  const TestSchema = new mongoose.Schema({ name: String });
-  const TestModel = mongoose.model("Test", TestSchema);
-
-  await TestModel.create({ name: "test" });
-
   return cached.conn;
 };
