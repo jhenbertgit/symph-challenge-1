@@ -1,5 +1,6 @@
 import mongoose, { Mongoose } from "mongoose";
 
+/*eslint-disable @typescript-eslint/no-explicit-any */
 const MONGODB_URL = process.env.MONGODB_URL;
 
 interface MongooseConnection {
@@ -7,11 +8,9 @@ interface MongooseConnection {
   promise: Promise<Mongoose> | null;
 }
 
-//eslint-disable-next-line @typescript-eslint/no-explicit-any
 let cached: MongooseConnection = (global as any).mongoose;
 
 if (!cached) {
-  //eslint-disable-next-line @typescript-eslint/no-explicit-any
   cached = (global as any).mongoose = { conn: null, promise: null };
 }
 
@@ -34,6 +33,12 @@ export const connectToDB = async (): Promise<Mongoose> => {
     });
 
   cached.conn = await cached.promise;
+
+  // Ensure database creation by performing a write operation
+  const TestSchema = new mongoose.Schema({ name: String });
+  const TestModel = mongoose.model("Test", TestSchema);
+
+  await TestModel.create({ name: "test" });
 
   return cached.conn;
 };
