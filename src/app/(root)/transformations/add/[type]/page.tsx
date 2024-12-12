@@ -10,9 +10,9 @@ import { redirect } from "next/navigation";
 const AddTransformationPage = async ({
   params,
 }: {
-  params: { type: TransformationTypeKey };
+  params: Promise<{ type: TransformationTypeKey }>;
 }) => {
-  const { type } = params;
+  const { type } = await params;
   const { userId } = await auth();
 
   const transformation = transformationTypes[type];
