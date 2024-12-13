@@ -1,6 +1,7 @@
 "use server";
 
 import User from "../database/models/user.model";
+
 import { revalidatePath } from "next/cache";
 import { connectToDB } from "../database/mongoose";
 import { handleError } from "../utils";
@@ -12,7 +13,6 @@ export async function createUser(user: CreateUserParams) {
 
     const newUser = await User.create(user);
 
-    console.log("New User: ", newUser);
     return JSON.parse(JSON.stringify(newUser));
   } catch (error) {
     handleError(error);

@@ -3,25 +3,28 @@
 /*eslint-disable @typescript-eslint/no-explicit-any */
 /*eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState, useTransition } from "react";
+import MediaUploader from "./MediaUploader";
+import TransformedImage from "./TransformedImage";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
 import { AspectRatioKey, debounce, deepMergeObjects } from "@/lib/utils";
 import { updateCredits } from "@/lib/actions/user.actions";
-
 import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
 import { CustomField } from "./CustomField";
-
+import { getCldImageUrl } from "next-cloudinary";
+import { addImage, updateImage } from "@/lib/actions/image.actions";
+import { useRouter } from "next/navigation";
+import { InsufficientCreditsModal } from "./InsufficientCreditsModal";
 import {
   aspectRatioOptions,
   creditFee,
   defaultValues,
   transformationTypes,
 } from "@/constants";
-
 import {
   Select,
   SelectContent,
@@ -29,12 +32,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import MediaUploader from "./MediaUploader";
-import TransformedImage from "./TransformedImage";
-import { getCldImageUrl } from "next-cloudinary";
-import { addImage, updateImage } from "@/lib/actions/image.actions";
-import { useRouter } from "next/navigation";
-import { InsufficientCreditsModal } from "./InsufficientCreditsModal";
 
 export const formSchema = z.object({
   title: z.string(),
@@ -181,7 +178,6 @@ const TransformationForm = ({
     return onChangeField(value);
   };
 
-  // TODO: Update creditfee to something else
   const onTransformHandler = async () => {
     setIsTransforming(true);
 

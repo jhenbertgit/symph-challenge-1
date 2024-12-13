@@ -2,9 +2,10 @@
 
 /*eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
+import Image from "next/image";
+
 import { useToast } from "@/hooks/use-toast";
 import { CldImage, CldUploadWidget } from "next-cloudinary";
-import Image from "next/image";
 import { dataUrl, getImageSize } from "@/lib/utils";
 import { PlaceholderValue } from "next/dist/shared/lib/get-img-props";
 

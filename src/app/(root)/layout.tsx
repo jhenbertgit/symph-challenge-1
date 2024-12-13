@@ -1,6 +1,7 @@
 import React from "react";
 import MobileNav from "@/components/shared/MobileNav";
 import Sidebar from "@/components/shared/Sidebar";
+
 import { Toaster } from "@/components/ui/toaster";
 
 interface Props {

@@ -1,9 +1,9 @@
 /*eslint-disable @typescript-eslint/no-explicit-any */
-
 import React from "react";
+
+import { formSchema } from "./TransformationForm";
 import { Control } from "react-hook-form";
 import { z } from "zod";
-
 import {
   FormField,
   FormItem,
@@ -11,8 +11,6 @@ import {
   FormMessage,
   FormLabel,
 } from "../ui/form";
-
-import { formSchema } from "./TransformationForm";
 
 type CustomFieldProps = {
   control: Control<z.infer<typeof formSchema>> | undefined;
